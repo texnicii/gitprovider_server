@@ -1,8 +1,15 @@
 <?php
+#error_reporting(-1);
+if(@$argv[1]=='install'){
+	require_once __DIR__.'/install.php';
+	return;
+}
 require_once __DIR__.'/vendor/autoload.php';
 
 define('PID_FILE', '/var/lib/pullserver/pullserver.pid');
 define('SOCKET_FILE', '/var/lib/pullserver/pullserver.sock');
+
+is_dir(dirname(SOCKET_FILE)) or die("run: gitprovider.phar install (as root)\n");
 
 if(file_exists(PID_FILE))
 	if($pid=file_get_contents(PID_FILE))
